@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  runs-on: ${{ matrix.os }}
+  strategy:
+    fail-fast: false
+    matrix:
+      os: [ windows-latest, macos-latest, ubuntu-latest ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Get latest CMake and Ninja
+        uses: lukka/get-cmake@latest
+      - name: CMake generate SMF library
+        run: cmake -G Ninja -S . -B build
+      - name: CMake build SMF library
+        run: cmake --build build
