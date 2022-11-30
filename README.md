@@ -22,7 +22,7 @@ on [Zephyr project](https://docs.zephyrproject.org/latest/services/smf/index.htm
 
 --------------
 Contributions are always welcome! If you have an idea, it's best to float it by me before working on it to ensure no
-effort is wasted. If there's already an open issue for it, knock yourself out. See the contributing section for
+effort is wasted. If there's already an open issue for it, knock yourself out. See the [contributing section](CONTRIBUTING.md) for
 additional details
 
 # License
