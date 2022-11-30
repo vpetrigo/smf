@@ -33,7 +33,7 @@ BraceWrapping:
   AfterExternBlock: false # false
   BeforeCatch: true # false
   BeforeElse: true # false
-  IndentBraces: true # false
+  IndentBraces: false # false
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
@@ -75,7 +75,7 @@ IndentWrappedFunctionNames: false
 IndentExternBlock: AfterExternBlock
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
-KeepEmptyLinesAtTheStartOfBlocks: true
+KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: ''
 MacroBlockEnd: ''
 MaxEmptyLinesToKeep: 1
@@ -90,7 +90,7 @@ PenaltyBreakFirstLessLess: 120
 PenaltyBreakString: 1000
 PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 60
-PointerAlignment: Left # Right
+PointerAlignment: Right
 ReflowComments: true
 SortIncludes: CaseSensitive
 SortUsingDeclarations: true
@@ -101,11 +101,11 @@ SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
 SpacesInAngles: false
-SpacesInContainerLiterals: true
+SpacesInContainerLiterals: false
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: c++11
-TabWidth: 8
+TabWidth: 4
 UseTab: Never
 ...
