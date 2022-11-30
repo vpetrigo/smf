@@ -10,7 +10,11 @@
 #include <stddef.h>
 
 #ifndef __unused
+#ifndef MSVC
 #define __unused __attribute__((unused))
+#else
+#define __unused
+#endif
 #endif /* __unused */
 
 #ifndef LOG_WARN
