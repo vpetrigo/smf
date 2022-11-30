@@ -11,6 +11,29 @@ The `smf` library has one of the cleanest interface and it is quite easy to use.
 This repository provides an integration for the CMake build system that allows to add the `smf` library
 to your project without a headache.
 
+## Library configuration
+
+There are two options available:
+- `SMF_ANCESTOR_SUPPORT` enables/disables hierarchical state machine support
+- `SMF_CONFIG_FILE` a configuration filename that will be included into `smf`
+
+Configuration file may provide the following stuff that `smf` would use:
+
+```c
+#ifndef MY_SMF_CONFIG_H
+#define MY_SMF_CONFIG_H
+
+// enable hierarchical state machine feature
+#define CONFIG_SMF_ANCESTOR_SUPPORT
+
+// ...
+
+// Logging macro that smf library uses
+#define LOG_WARN(...)
+
+#endif /* MY_SMF_CONFIG_H */
+```
+
 # Documentation
 
 ---------------

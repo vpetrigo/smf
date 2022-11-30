@@ -83,7 +83,7 @@ jobs:
       - name: Get latest CMake and Ninja
         uses: lukka/get-cmake@latest
       - name: CMake generate build for SMF library with hierarchical state machine feature
-        run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -S . -DSMF_ANCESTOR_SUPPORT=ON
+        run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -S . -B build -DSMF_ANCESTOR_SUPPORT=ON
       - name: CMake build SMF library with hierarchical state machine feature
         run: cmake --build build
 
