@@ -15,4 +15,4 @@ target_compile_definitions(smf PUBLIC
     $<$<BOOL:${SMF_ANCESTOR_SUPPORT}>:CONFIG_SMF_ANCESTOR_SUPPORT>)
 target_compile_options(smf PRIVATE
     $<$<OR:$<STREQUAL:$<C_COMPILER_ID>,GNU>,$<STREQUAL:$<C_COMPILER_ID>,Clang>>:-Wall -Werror -Wextra -Wpedantic -Wconversion>
-    $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/WAll /WX>)
+    $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/Wall /WX>)
