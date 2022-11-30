@@ -111,7 +111,7 @@ jobs:
       - name: CMake generate build for SMF library
         run: |
           cmake -G "Visual Studio 17 2022" -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
-          cmake -G "Visual Studio 17 2022" -S . -B build-debug -DCMAKE_BUILD_TYPE=Release
+          cmake -G "Visual Studio 17 2022" -S . -B build-release -DCMAKE_BUILD_TYPE=Release
       - name: CMake build SMF library
         run: |
           cmake --build build-debug
@@ -127,7 +127,7 @@ jobs:
       - name: CMake generate build for SMF library with hierarchical state machine feature
         run: |
           cmake -G "Visual Studio 17 2022" -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug -DSMF_ANCESTOR_SUPPORT=ON
-          cmake -G "Visual Studio 17 2022" -S . -B build-debug -DCMAKE_BUILD_TYPE=Release -DSMF_ANCESTOR_SUPPORT=ON
+          cmake -G "Visual Studio 17 2022" -S . -B build-release -DCMAKE_BUILD_TYPE=Release -DSMF_ANCESTOR_SUPPORT=ON
       - name: CMake build SMF library with hierarchical state machine feature
         run: |
           cmake --build build-debug
