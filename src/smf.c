@@ -10,7 +10,7 @@
 #include <stddef.h>
 
 #ifndef __unused
-#ifndef MSVC
+#ifndef _MSC_VER
 #define __unused __attribute__((unused))
 #else
 #define __unused
