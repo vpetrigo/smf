@@ -34,6 +34,16 @@ Configuration file may provide the following stuff that `smf` would use:
 #endif /* MY_SMF_CONFIG_H */
 ```
 
+## Supported FSM types
+
+_Flat state machine example_:
+
+![flat_fsm](https://docs.zephyrproject.org/latest/_images/graphviz-7dede75b9a4d58b00112b7dd332873b75011ab58.svg)
+
+_Hierarchical state machine example (`CONFIG_SMF_ANCESTOR_SUPPORT` enabled)_:
+
+![hierarchical_fsm](https://docs.zephyrproject.org/latest/_images/graphviz-e303d3db97d9a83ba3484943b1023f8b1a12d071.svg)
+
 # Documentation
 
 ---------------
