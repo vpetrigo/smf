@@ -41,7 +41,47 @@ jobs:
       - name: CMake generate build for SMF library with hierarchical state machine feature
         run: cmake -G Ninja -S . -B build -DSMF_ANCESTOR_SUPPORT=ON
       - name: CMake build SMF library with hierarchical state machine feature
-        run: cmake  --build build
+        run: cmake --build build
+
+  build_linux_clang:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
+        clang: [ '12.0', '14.0' ]
+        gcc: [ 'latest' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install LLVM and Clang - ${{ matrix.clang }}
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: ${{ matrix.clang }}
+      - name: CMake generate build for SMF library with hierarchical state machine feature
+        run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -S . -B build
+      - name: CMake build SMF library with hierarchical state machine feature
+        run: cmake --build build
+
+  build_linux_clang_ancestor:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
+        clang: [ '12.0', '14.0' ]
+        gcc: [ 'latest' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install LLVM and Clang - ${{ matrix.clang }}
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: ${{ matrix.clang }}
+      - name: CMake generate build for SMF library with hierarchical state machine feature
+        run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -S . -DSMF_ANCESTOR_SUPPORT=ON
+      - name: CMake build SMF library with hierarchical state machine feature
+        run: cmake --build build
 
   build_msvc:
     runs-on: windows-latest
@@ -65,4 +105,4 @@ jobs:
       - name: CMake generate build for SMF library with hierarchical state machine feature
         run: cmake -G "Visual Studio 17 2022" -S . -B build -DSMF_ANCESTOR_SUPPORT=ON
       - name: CMake build SMF library with hierarchical state machine feature
-        run: cmake  --build build
+        run: cmake --build build
