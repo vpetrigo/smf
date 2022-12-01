@@ -82,9 +82,8 @@ static const struct smf_state *get_last_of(const struct smf_state *states)
  * @param target The entry actions of this target's ancestors are executed
  * @return true if the state machine should terminate, else false
  */
-__unused static bool
-smf_execute_ancestor_entry_actions(struct smf_ctx *const ctx,
-                                   const struct smf_state *target)
+__unused static bool smf_execute_ancestor_entry_actions(
+    struct smf_ctx *const ctx, const struct smf_state *target)
 {
     struct internal_ctx *const internal = (void *)&ctx->internal;
 
@@ -158,9 +157,8 @@ __unused static bool smf_execute_ancestor_run_actions(struct smf_ctx *ctx)
  * @param target The exit actions of this target's ancestors are executed
  * @return true if the state machine should terminate, else false
  */
-__unused static bool
-smf_execute_ancestor_exit_actions(struct smf_ctx *const ctx,
-                                  const struct smf_state *target)
+__unused static bool smf_execute_ancestor_exit_actions(
+    struct smf_ctx *const ctx, const struct smf_state *target)
 {
     struct internal_ctx *const internal = (void *)&ctx->internal;
 
