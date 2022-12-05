@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(smf VERSION 0.1.0)
+project(smf VERSION 0.1.1)
 
 # options
 # SMF config include file
@@ -17,7 +17,7 @@ target_compile_definitions(smf PUBLIC
     $<$<BOOL:${SMF_ANCESTOR_SUPPORT}>:CONFIG_SMF_ANCESTOR_SUPPORT>)
 target_compile_options(smf PRIVATE
     $<$<OR:$<STREQUAL:$<C_COMPILER_ID>,GNU>,$<STREQUAL:$<C_COMPILER_ID>,Clang>>:-Wall -Werror -Wextra -Wpedantic -Wconversion>
-    $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/Wall /WX>)
+    $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/W3 /WX>)
 
 # Install support
 include(GNUInstallDirs)
