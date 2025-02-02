@@ -54,9 +54,11 @@ jobs:
 
   build_msvc:
     runs-on: windows-latest
-    matrix:
-      type: [ Debug, Release ]
-      features: [ { parent: OFF, initial: OFF }, { parent: ON, initial: OFF }, { parent: ON, initial: ON } ]
+    strategy:
+      fail-fast: false
+      matrix:
+        type: [ Debug, Release ]
+        features: [ { parent: OFF, initial: OFF }, { parent: ON, initial: OFF }, { parent: ON, initial: ON } ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
