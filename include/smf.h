@@ -15,6 +15,14 @@
 #include SMF_STR(SMF_CONFIG)
 #endif
 
+#ifndef CONFIG_SMF_ANCESTOR_SUPPORT
+#define CONFIG_SMF_ANCESTOR_SUPPORT 0
+#endif
+
+#ifndef CONFIG_SMF_INITIAL_TRANSITION
+#define CONFIG_SMF_INITIAL_TRANSITION 0
+#endif
+
 #define __ARG_PLACEHOLDER_1 0,
 #define __take_second_arg(__ignored, val, ...) val
 
@@ -33,35 +41,28 @@
 #define IS_BUILTIN(option) __is_defined(option)
 #define IS_ENABLED(option) IS_BUILTIN(option)
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
-/**
- * @brief Macro to create a hierarchical state.
- *
- * @param _entry  State entry function
- * @param _run    State run function
- * @param _exit   State exit function
- * @param _parent State parent object or NULL
- */
-#define SMF_CREATE_STATE(_entry, _run, _exit, _parent)                         \
-    {                                                                          \
-        .entry = _entry, .run = _run, .exit = _exit, .parent = _parent         \
-    }
+#define IF_ENABLED_IMPL_0(...)
+#define IF_ENABLED_IMPL_1(...) __VA_ARGS__
 
-#else
+/* Main macro for choosing code vs. empty: */
+#define _IF_ENABLED(flag, ...) IF_ENABLED_IMPL_##flag(__VA_ARGS__)
+#define IF_ENABLED(flag, ...) _IF_ENABLED(flag, __VA_ARGS__)
 
 /**
- * @brief Macro to create a flat state.
+ * @brief Macro to create a hierarchical state with initial transitions.
  *
- * @param _entry  State entry function
- * @param _run  State run function
- * @param _exit  State exit function
+ * @param _entry   State entry function or NULL
+ * @param _run     State run function or NULL
+ * @param _exit    State exit function or NULL
+ * @param _parent  State parent object or NULL
+ * @param _initial State initial transition object or NULL
  */
-#define SMF_CREATE_STATE(_entry, _run, _exit)                                  \
-    {                                                                          \
-        .entry = _entry, .run = _run, .exit = _exit                            \
-    }
-
-#endif /* CONFIG_SMF_ANCESTOR_SUPPORT */
+#define SMF_CREATE_STATE(_entry, _run, _exit, _parent, _initial)               \
+    {.entry = _entry,                                                          \
+     .run = _run,                                                              \
+     .exit = _exit,                                                            \
+     IF_ENABLED(CONFIG_SMF_ANCESTOR_SUPPORT, .parent = _parent, )              \
+         IF_ENABLED(CONFIG_SMF_INITIAL_TRANSITION, .initial = _initial, )}
 
 /**
  * @brief Macro to cast user defined object to state machine
@@ -95,6 +96,7 @@ struct smf_state {
     const state_execution run;
     /** Optional method that will be run when this state exists */
     const state_execution exit;
+#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
     /**
      * Optional parent state that contains common entry/run/exit
      *	implementation among various child states.
@@ -102,10 +104,18 @@ struct smf_state {
      *	run:   Parent function executes AFTER child function.
      *	exit:  Parent function executes AFTER child function.
      *
-     *	Note: When transitioning between two child states with a shared parent,
-     *	that parent's exit and entry functions do not execute.
+     *	Note: When transitioning between two child states with a shared
+     *      parent,	that parent's exit and entry functions do not execute.
      */
     const struct smf_state *parent;
+
+#ifdef CONFIG_SMF_INITIAL_TRANSITION
+    /**
+     * Optional initial transition state. NULL for leaf states.
+     */
+    const struct smf_state *initial;
+#endif /* CONFIG_SMF_INITIAL_TRANSITION */
+#endif /* CONFIG_SMF_ANCESTOR_SUPPORT */
 };
 
 /** Defines the current context of the state machine. */
@@ -114,6 +124,11 @@ struct smf_ctx {
     const struct smf_state *current;
     /** Previous state the state machine executed */
     const struct smf_state *previous;
+
+#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+    /** Currently executing state (which may be a parent) */
+    const struct smf_state *executing;
+#endif /* CONFIG_SMF_ANCESTOR_SUPPORT */
     /**
      * This value is set by the set_terminate function and
      * should terminate the state machine when its set to a
