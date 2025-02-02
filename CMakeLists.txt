@@ -8,6 +8,11 @@ set(SMF_CONFIG_FILE "" CACHE STRING "SMF config include file")
 # Enable/disable hierarchical state machine support
 option(SMF_ANCESTOR_SUPPORT "Enable SMF hierarchical state feature" OFF)
 option(SMF_INITIAL_TRANSITION "Enable SMF initial transition feature" OFF)
+option(SMF_ENABLE_EXAMPLES "Enable examples" OFF)
+
+if (SMF_ENABLE_EXAMPLES)
+    add_subdirectory(examples/)
+endif ()
 
 if (SMF_INITIAL_TRANSITION AND NOT SMF_ANCESTOR_SUPPORT)
     message(FATAL_ERROR "SMF_INITIAL_TRANSITION cannot be enabled without SMF_ANCESTOR_SUPPORT")
@@ -24,6 +29,7 @@ target_compile_definitions(smf PUBLIC
 target_compile_options(smf PRIVATE
         $<$<OR:$<STREQUAL:$<C_COMPILER_ID>,GNU>,$<STREQUAL:$<C_COMPILER_ID>,Clang>>:-Wall -Werror -Wextra -Wpedantic -Wconversion>
         $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/W3 /WX>)
+add_library(smf::smf ALIAS smf)
 
 # Install support
 include(GNUInstallDirs)
