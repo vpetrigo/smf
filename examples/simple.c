@@ -6,7 +6,12 @@
 #include <smf.h>
 
 #include <stdio.h>
+#if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
+#define sleep(x) Sleep((x) * 1000)
+#else
 #include <unistd.h>
+#endif
 
 /* Forward declaration of state table */
 static const struct smf_state demo_states[];
