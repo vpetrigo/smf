@@ -14,7 +14,7 @@
 #endif
 
 /* Forward declaration of state table */
-static const struct smf_state demo_states[];
+static extern const struct smf_state demo_states[];
 
 /* List of demo states */
 enum demo_state
