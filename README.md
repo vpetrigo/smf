@@ -38,11 +38,13 @@ Configuration file may provide the following stuff that `smf` would use:
 
 _Flat state machine example_:
 
-![flat_fsm](https://docs.zephyrproject.org/latest/_images/graphviz-7dede75b9a4d58b00112b7dd332873b75011ab58.svg)
+![flat_fsm](https://github.com/user-attachments/assets/57af1d45-0853-4f13-85fa-f77cb223be6c)
+
 
 _Hierarchical state machine example (`CONFIG_SMF_ANCESTOR_SUPPORT` enabled)_:
 
-![hierarchical_fsm](https://docs.zephyrproject.org/latest/_images/graphviz-e303d3db97d9a83ba3484943b1023f8b1a12d071.svg)
+![hierarchical_fsm](https://github.com/user-attachments/assets/df07612e-936f-4368-a939-a782485fdea9)
+
 
 # Documentation
 
