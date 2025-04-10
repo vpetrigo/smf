@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(smf VERSION 0.1.2)
+project(smf VERSION 0.2.1)
 
 # options
 # SMF config include file
