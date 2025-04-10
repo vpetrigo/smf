@@ -9,6 +9,7 @@ set(SMF_CONFIG_FILE "" CACHE STRING "SMF config include file")
 option(SMF_ANCESTOR_SUPPORT "Enable SMF hierarchical state feature" OFF)
 option(SMF_INITIAL_TRANSITION "Enable SMF initial transition feature" OFF)
 option(SMF_ENABLE_EXAMPLES "Enable examples" OFF)
+option(SMF_INSTALL_LIBRARY "Install library enable" ON)
 
 if (SMF_ENABLE_EXAMPLES)
     add_subdirectory(examples/)
@@ -32,18 +33,20 @@ target_compile_options(smf PRIVATE
 add_library(smf::smf ALIAS smf)
 
 # Install support
-include(GNUInstallDirs)
-install(TARGETS smf
-        EXPORT smf-targets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES include/smf.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(EXPORT smf-targets
-        FILE smf-targets.cmake
-        NAMESPACE ${PROJECT_NAME}::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+if (SMF_INSTALL_LIBRARY)
+    include(GNUInstallDirs)
+    install(TARGETS smf
+            EXPORT smf-targets
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(FILES include/smf.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(EXPORT smf-targets
+            FILE smf-targets.cmake
+            NAMESPACE ${PROJECT_NAME}::
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+endif ()
 
 # CMake FindPackage support
 include(CMakePackageConfigHelpers)
