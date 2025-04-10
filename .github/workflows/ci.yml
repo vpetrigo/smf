@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-latest, macos-latest, ubuntu-latest ]
+        os: [ windows-latest, macos-15, ubuntu-latest ]
         clang: [ '14.0', '15' ]
         type: [ Debug, Release ]
         features: [ { parent: OFF, initial: OFF }, { parent: ON, initial: OFF }, { parent: ON, initial: ON } ]
