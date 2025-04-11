@@ -37,7 +37,7 @@ struct internal_ctx {
     bool handled : 1;
 };
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
 static bool share_paren(const struct smf_state *test_state,
                         const struct smf_state *target_state)
 {
@@ -245,7 +245,7 @@ static void smf_clear_internal_state(struct smf_ctx *ctx)
 
 void smf_set_initial(struct smf_ctx *ctx, const struct smf_state *init_state)
 {
-#ifdef CONFIG_SMF_INITIAL_TRANSITION
+#if CONFIG_SMF_INITIAL_TRANSITION == 1
     /*
      * The final target will be the deepest leaf state that
      * the target contains. Set that as the real target.
@@ -260,7 +260,7 @@ void smf_set_initial(struct smf_ctx *ctx, const struct smf_state *init_state)
     ctx->previous = NULL;
     ctx->terminate_val = 0;
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     struct internal_ctx *const internal = (void *)&ctx->internal;
 
     ctx->executing = init_state;
@@ -308,7 +308,7 @@ void smf_set_state(struct smf_ctx *const ctx, const struct smf_state *new_state)
         return;
     }
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     const struct smf_state *topmost;
 
     if (share_paren(ctx->executing, new_state)) {
@@ -354,7 +354,7 @@ void smf_set_state(struct smf_ctx *const ctx, const struct smf_state *new_state)
             return;
         }
     }
-#ifdef CONFIG_SMF_INITIAL_TRANSITION
+#if CONFIG_SMF_INITIAL_TRANSITION == 1
     /*
      * The final target will be the deepest leaf state that
      * the target contains. Set that as the real target.
@@ -427,7 +427,7 @@ int32_t smf_run_state(struct smf_ctx *const ctx)
      * correctly.
      */
     smf_clear_internal_state(ctx);
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     ctx->executing = ctx->current;
 #endif
 
@@ -435,7 +435,7 @@ int32_t smf_run_state(struct smf_ctx *const ctx)
         ctx->current->run(ctx);
     }
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     if (smf_execute_ancestor_run_actions(ctx)) {
         return ctx->terminate_val;
     }
