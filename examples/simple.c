@@ -56,7 +56,7 @@ static void s0_entry(void *o)
 static void s0_run(void *o)
 {
     puts(__func__);
-    smf_set_state(SMF_CTX(&s_obj), &demo_states[S1]);
+    smf_set_state(SMF_CTX(o), &demo_states[S1]);
 }
 
 static void s0_exit(void *o)
@@ -69,7 +69,7 @@ static void s0_exit(void *o)
 static void s1_run(void *o)
 {
     puts(__func__);
-    smf_set_state(SMF_CTX(&s_obj), &demo_states[S2]);
+    smf_set_state(SMF_CTX(o), &demo_states[S2]);
 }
 
 static void s1_exit(void *o)
@@ -97,7 +97,7 @@ static void s2_run(void *o)
         puts("Terminating state machine");
     }
     else {
-        smf_set_state(SMF_CTX(&s_obj), &demo_states[S0]);
+        smf_set_state(ctx, &demo_states[S0]);
     }
 }
 
