@@ -78,7 +78,7 @@ struct smf_state {
     const state_execution run;
     /** Optional method that will be run when this state exists */
     const state_execution exit;
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     /**
      * Optional parent state that contains common entry/run/exit
      *	implementation among various child states.
@@ -91,7 +91,7 @@ struct smf_state {
      */
     const struct smf_state *parent;
 
-#ifdef CONFIG_SMF_INITIAL_TRANSITION
+#if CONFIG_SMF_INITIAL_TRANSITION == 1
     /**
      * Optional initial transition state. NULL for leaf states.
      */
@@ -107,7 +107,7 @@ struct smf_ctx {
     /** Previous state the state machine executed */
     const struct smf_state *previous;
 
-#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
+#if CONFIG_SMF_ANCESTOR_SUPPORT == 1
     /** Currently executing state (which may be a parent) */
     const struct smf_state *executing;
 #endif /* CONFIG_SMF_ANCESTOR_SUPPORT */
