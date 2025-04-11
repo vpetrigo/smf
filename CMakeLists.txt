@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(smf VERSION 0.2.1)
+project(smf VERSION 0.2.2)
 
 # options
 # SMF config include file
@@ -25,8 +25,8 @@ target_include_directories(smf PUBLIC
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 target_compile_definitions(smf PUBLIC
         $<$<BOOL:${SMF_CONFIG_FILE}>:SMF_CONFIG=${SMF_CONFIG_FILE}>
-        $<$<BOOL:${SMF_ANCESTOR_SUPPORT}>:CONFIG_SMF_ANCESTOR_SUPPORT>
-        $<$<BOOL:${SMF_INITIAL_TRANSITION}>:CONFIG_SMF_INITIAL_TRANSITION>)
+        $<$<BOOL:${SMF_ANCESTOR_SUPPORT}>:CONFIG_SMF_ANCESTOR_SUPPORT=1>
+        $<$<BOOL:${SMF_INITIAL_TRANSITION}>:CONFIG_SMF_INITIAL_TRANSITION=1>)
 target_compile_options(smf PRIVATE
         $<$<OR:$<STREQUAL:$<C_COMPILER_ID>,GNU>,$<STREQUAL:$<C_COMPILER_ID>,Clang>>:-Wall -Werror -Wextra -Wpedantic -Wconversion>
         $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/W3 /WX>)
