@@ -32,6 +32,16 @@ target_compile_options(smf PRIVATE
         $<$<STREQUAL:$<C_COMPILER_ID>,MSVC>:/W3 /WX>)
 add_library(smf::smf ALIAS smf)
 
+# CMake FindPackage support
+include(CMakePackageConfigHelpers)
+configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/config.cmake.in
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+        VERSION "${PROJECT_VERSION}"
+        COMPATIBILITY SameMajorVersion)
+
 # Install support
 if (SMF_INSTALL_LIBRARY)
     include(GNUInstallDirs)
@@ -46,18 +56,8 @@ if (SMF_INSTALL_LIBRARY)
             FILE smf-targets.cmake
             NAMESPACE ${PROJECT_NAME}::
             DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+    install(FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 endif ()
-
-# CMake FindPackage support
-include(CMakePackageConfigHelpers)
-configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/config.cmake.in
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
-write_basic_package_version_file(
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
-        VERSION "${PROJECT_VERSION}"
-        COMPATIBILITY SameMajorVersion)
-install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
