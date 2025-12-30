@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-latest, macos-13, ubuntu-latest ]
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
         type: [ Debug, Release ]
         features: [ { parent: OFF, initial: OFF }, { parent: ON, initial: OFF }, { parent: ON, initial: ON } ]
     steps:
