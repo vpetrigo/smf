@@ -9,6 +9,8 @@ on:
     branches: [ main ]
     paths-ignore:
       - '**.md'
+  schedule:
+    - cron: '0 10 * * 1'
 
 jobs:
   build:
